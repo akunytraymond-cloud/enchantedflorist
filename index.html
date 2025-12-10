@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ENCHANTED FLORIST BATAM</title>
+
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            font-family: 'Poppins', sans-serif;
+            background: #ffffff;
+            color: #333;
+            scroll-behavior: smooth;
+        }
+
+        /* ---------------- NAVBAR ---------------- */
+        .navbar {
+            width: 95%;
+            padding: 15px 40px;
+            background: linear-gradient(90deg, #ff9bb3, #ff7194);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-bottom: 2px solid #ff4b78;
+            flex-wrap: wrap;
+        }
+
+        .navbar:hover {
+            background: linear-gradient(90deg, #ff7194, #ff4b78);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .logo:hover {
+            transform: scale(1.1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 500;
+            position: relative;
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 3px;
+            background: #fff;
+            left: 0;
+            bottom: -5px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        @media (max-width: 700px) {
+            .navbar {
+                flex-direction: column;
+                gap: 10px;
+                padding: 12px 20px;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .logo {
+                justify-content: center;
+            }
+        }
+
+        /* ---------------- HERO SECTION ---------------- */
+        header {
+            background: url('bungaaa.png') center/cover no-repeat;
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin: 0;
+            text-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin: 15px 0 25px;
+            text-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        header a {
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            margin: 5px;
+        }
+
+        header a.cta-primary {
+            background: #ff7194;
+            color: white;
+        }
+
+        header a.cta-primary:hover {
+            background: #ff4b78;
+        }
+
+        header a.cta-secondary {
+            background: #ffffff;
+            color: #ff7194;
+            border: 2px solid #ff7194;
+        }
+
+        header a.cta-secondary:hover {
+            background: #ff7194;
+            color: #fff;
+        }
+
+        /* ---------------- SECTION STYLE ---------------- */
+        .section {
+            padding: 60px 20px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+
+        /* ---------------- PRODUCTS GRID ---------------- */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: scale(1.03);
+        }
+
+        .card img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        /* ---------------- CTA ---------------- */
+        .cta {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .cta a {
+            background: #ff7194;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .cta a:hover {
+            background: #ff4b78;
+        }
+
+        /* ---------------- FOOTER ---------------- */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 10px;
+            margin-top: 60px;
+        }
+
+        footer a {
+            color: #ffb3c9;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        :root {
+            --season-main: #ff9bb3;
+            --season-accent: #ff4b78;
+            --season-bg: #fff0f5;
+        }
+
+        /* Override navbar & button pakai tema */
+        .navbar {
+            background: linear-gradient(90deg, var(--season-main), var(--season-accent)) !important;
+            border-bottom: 2px solid var(--season-accent);
+        }
+
+        header a.cta-primary,
+        .cta a {
+            background: var(--season-accent) !important;
+        }
+
+        header a.cta-secondary {
+            color: var(--season-accent) !important;
+            border: 2px solid var(--season-accent) !important;
+        }
+
+        /* Efek visual musiman */
+        .season-effect {
+            position: fixed;
+            top: -20px;
+            font-size: 20px;
+            animation: fall linear infinite;
+            z-index: 0;
+            opacity: 0.7;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logoo.png" alt="Logo Enchanted Florist">
+            Enchanted Florist
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">Tentang Kami</a></li>
+            <li><a href="products.html">Produk</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO -->
+    <header id="hero">
+        <div>
+            <h1>ENCHANTED FLORIST</h1>
+            <p>Rangkaian bunga segar untuk setiap momen spesial Anda</p>
+
+            <a href="#order" class="cta-primary">Pesan Sekarang</a>
+            <a href="#products" class="cta-secondary">Lihat Produk</a>
+        </div>
+    </header>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+        <h2 class="title">Tentang Kami</h2>
+        <p style="text-align:center; max-width:800px; margin:auto; font-size:1.1rem; color:#555;">
+            Kami menyediakan rangkaian bunga segar berkualitas tinggi yang dirangkai secara profesional.
+            Setiap buket dibuat dengan penuh ketelitian dan cinta untuk memastikan pelanggan mendapatkan yang terbaik.
+        </p>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section class="section" id="products">
+        <h2 class="title">Kategori Produk</h2>
+
+        <div class="products">
+            <div class="card" onclick="location.href='products.html#fresh-flower'">
+                <img src="mawar merah.png" alt="Fresh Flower">
+                <div class="card-body">
+                    <h3>Fresh Flower</h3>
+                    <p>Bunga segar pilihan untuk momen spesial Anda.</p>
+                </div>
+            </div>
+
+            <div class="card" onclick="location.href='products.html#Bouquet'">
+                <img src="thumbelina size L.png" alt="Bouquet">
+                <div class="card-body">
+                    <h3>Bouquet</h3>
+                    <p>Buket cantik siap untuk diberikan sebagai hadiah.</p>
+                </div>
+            </div>
+
+            <div class="card" onclick="location.href='products.html#Lainnya'">
+                <img src="rangkaian.png" alt="Lainnya">
+                <div class="card-body">
+                    <h3>Lainnya</h3>
+                    <p>Produk kami yang lain.</p>
+                </div>
+            </div>
+
+            <div class="card" onclick="location.href='products.html#Artificial-Flower'">
+                <img src="Soft artificial flower bouquet.png" alt="Artificial Flower">
+                <div class="card-body">
+                    <h3>Artificial Flower</h3>
+                    <p>Buket bunga artifisial cantik, tahan lama dan elegan.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta" id="order">
+            <a href="https://wa.me/6285831156517">Order via WhatsApp</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contact">
+        <div class="footer-container">
+            <p class="footer-text">© 2025 ENCHANTED FLORIST — Bunga Segar untuk Hati yang Bahagia</p>
+            <div class="footer-social">
+                <a href="https://www.instagram.com/enchantedfloristbatam24" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="#ffb3c9">
+                        <path d="M7 2C4.243 2 2 4.243 2 7v10c0 
+                        2.757 2.243 5 5 5h10c2.757 0 5-2.243 
+                        5-5V7c0-2.757-2.243-5-5-5H7zm10 
+                        2c1.654 0 3 1.346 3 3v10c0 1.654-1.346 
+                        3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 
+                        1.346-3 3-3h10zm-5 3c-2.757 0-5 
+                        2.243-5 5s2.243 5 5 5 5-2.243 
+                        5-5-2.243-5-5-5zm0 2c1.654 0 3 
+                        1.346 3 3s-1.346 3-3 3-3-1.346-3-3 
+                        1.346-3 3-3zm4.5-3a1.5 1.5 0 100 
+                        3 1.5 1.5 0 000-3z" />
+                    </svg>
+                    @enchantedfloristbatam24
+                </a>
+            </div>
+        </div>
+        <!-- ====================== LOKASI TOKO ====================== -->
+        <h2 id="lokasi">Lokasi Toko Kami</h2>
+
+        <div style="
+    background:rgb(4, 4, 4);
+    padding:20px;
+    border-radius:14px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+    border:2px solid #ffb6d5;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+">
+            <!-- INFO -->
+            <div>
+                <h3 style="margin-top:0;color:#ff4b87;">🏪 Enchanted Florist</h3>
+                <p>📍 Batam, Kepulauan Riau</p>
+                <p>🕘 Buka setiap hari: 09.00 – 21.00</p>
+                <p>📞 WhatsApp: 0858-3115-6517</p>
+
+                <a href="https://maps.app.goo.gl/hwtQfC1nHuJuw1VM9" target="_blank" style="
+                display:inline-block;
+                margin-top:10px;
+                background:#ff4b87;
+                color:white;
+                padding:10px 16px;
+                border-radius:10px;
+                text-decoration:none;
+                font-weight:bold;
+            ">
+                    🚗 Petunjuk Arah ke Toko
+                </a>
+            </div>
+
+            <!-- MAP -->
+            <div style="border-radius:12px; overflow:hidden;">
+                <iframe src="https://www.google.com/maps?q=Enchanted+Florist+Batam&output=embed" width="100%"
+                    height="230" style="border:0;" allowfullscreen loading="lazy">
+                </iframe>
+            </div>
+
+        </div>
+    </footer>
+    <script>
+        const month = new Date().getMonth() + 1;
+        const root = document.documentElement;
+
+        let effectEmoji = "";
+
+        if (month === 1 || month === 12) {
+            // Natal & Tahun Baru
+            root.style.setProperty('--season-main', '#b30000');
+            root.style.setProperty('--season-accent', '#ffd700');
+            root.style.setProperty('--season-bg', '#fff5f5');
+            effectEmoji = "❄️";
+        }
+        else if (month === 2) {
+            // Valentine
+            root.style.setProperty('--season-main', '#ff5c8a');
+            root.style.setProperty('--season-accent', '#ff1e56');
+            root.style.setProperty('--season-bg', '#fff0f5');
+            effectEmoji = "❤️";
+        }
+        else if (month === 3 || month === 4 || month === 5) {
+            // Spring / Semi
+            root.style.setProperty('--season-main', '#7bdcb5');
+            root.style.setProperty('--season-accent', '#2ecc71');
+            root.style.setProperty('--season-bg', '#f0fff8');
+            effectEmoji = "🌸";
+        }
+        else if (month === 6 || month === 7 || month === 8) {
+            // Summer
+            root.style.setProperty('--season-main', '#ffd166');
+            root.style.setProperty('--season-accent', '#f77f00');
+            root.style.setProperty('--season-bg', '#fffbe6');
+            effectEmoji = "☀️";
+        }
+        else if (month === 9 || month === 10) {
+            // Autumn
+            root.style.setProperty('--season-main', '#ffb703');
+            root.style.setProperty('--season-accent', '#fb8500');
+            root.style.setProperty('--season-bg', '#fff3e0');
+            effectEmoji = "🍁";
+        }
+        else if (month === 11) {
+            // Ramadan / Islami Soft
+            root.style.setProperty('--season-main', '#1abc9c');
+            root.style.setProperty('--season-accent', '#16a085');
+            root.style.setProperty('--season-bg', '#ecfffb');
+            effectEmoji = "🌙";
+        }
+
+        // Generate efek jatuh
+        for (let i = 0; i < 25; i++) {
+            const el = document.createElement("div");
+            el.className = "season-effect";
+            el.innerText = effectEmoji;
+            el.style.left = Math.random() * 100 + "vw";
+            el.style.animationDuration = (Math.random() * 5 + 5) + "s";
+            el.style.fontSize = (Math.random() * 15 + 12) + "px";
+            document.body.appendChild(el);
+        }
+    </script>
+
+</body>
+
+</html>

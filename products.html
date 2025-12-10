@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog Produk – Enchanted Florist</title>
+
+
+    <!-- FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --season-bg: #fff7fa;
+            --season-primary: #ff7aa8;
+            --season-secondary: #ff4b87;
+            --season-accent: #ffb6d5;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background: var(--season-bg);
+            overflow-x: hidden;
+        }
+
+        /* HEADER */
+        header {
+            background: linear-gradient(45deg, var(--season-primary), var(--season-secondary));
+            color: white;
+            padding: 30px 15px;
+            text-align: center;
+            position: relative;
+        }
+
+
+        /* FLORAL CORNER DECOR */
+        header::before,
+        header::after {
+            content: "";
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background-image: url("bun.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.25;
+        }
+
+        header::before {
+            top: -10px;
+            left: -10px;
+            transform: rotate(20deg);
+        }
+
+        header::after {
+            bottom: -10px;
+            right: -10px;
+            transform: rotate(-20deg);
+        }
+
+
+        /* CONTAINER */
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        h2 {
+            margin-top: 40px;
+            color: #ff4b87;
+            font-size: 25px;
+        }
+
+        /* GRID */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 20px;
+        }
+
+        /* --- TOMBOL HOME --- */
+        .btn-home {
+            display: inline-block;
+            margin: 20px;
+            padding: 10px 20px;
+            background: var(--season-primary);
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* PRODUCT CARD */
+        .product-card {
+            background: white;
+            padding: 15px;
+            border-radius: 14px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            transition: 0.3s ease;
+            border: 2px solid #ffb6d5;
+        }
+
+        /* HOVER EFFECT */
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 6px 20px rgba(255, 120, 160, 0.4);
+            border-color: #ff7aa8;
+        }
+
+        .product-card img {
+            width: 100%;
+            border-radius: 12px;
+            transition: 0.3s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .best {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--season-secondary);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+        }
+
+        .product-name {
+            font-size: 17px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .price {
+            color: #ff4b87;
+            font-weight: bold;
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background: var(--season-primary);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s ease;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: var(--season-secondary);
+        }
+
+        /* CART */
+        #cart {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #ff4b87;
+            padding: 15px;
+            color: white;
+            border-radius: 14px;
+            width: 260px;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 9998;
+        }
+
+        #checkout {
+            background: white;
+            color: #ff4b87;
+            padding: 8px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+        }
+
+        /* FALLING FLOWERS */
+        .flower {
+            position: fixed;
+            top: -50px;
+            width: 30px;
+            height: 30px;
+            background-image: url("bunga jatuh.png");
+            background-size: cover;
+            opacity: 0.8;
+            animation: fall 6s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-50px) rotate(0deg);
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+
+        .cart-animate {
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(40px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* SEARCH HIGHLIGHT */
+        .product-name mark {
+            background: #fff08a;
+            color: #222;
+            padding: 0 2px;
+            border-radius: 3px;
+        }
+
+        #search-wrap input:focus {
+            outline: none;
+            box-shadow: 0 4px 12px rgba(255, 80, 140, 0.12);
+            border-color: #ff4b87;
+        }
+
+        /* ===== UKURAN PRODUK DEFAULT (LAPTOP & DESKTOP) ===== */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .product-card {
+            padding: 12px;
+            border-radius: 14px;
+        }
+
+        .product-card img {
+            height: 170px;
+            object-fit: cover;
+        }
+
+        .product-card h3 {
+            font-size: 15px;
+        }
+
+        .product-card p {
+            font-size: 13px;
+        }
+
+        .product-card button {
+            font-size: 13px;
+            padding: 7px 12px;
+        }
+
+        /* ===== VERSI HP ===== */
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .product-card img {
+                height: 140px;
+            }
+
+            .product-card h3 {
+                font-size: 14px;
+            }
+
+            .product-card p {
+                font-size: 12px;
+            }
+
+            .product-card button {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+        }
+
+        /* ===== IMAGE PREVIEW POPUP ===== */
+        .img-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .img-modal img {
+            max-width: 90%;
+            max-height: 85%;
+            border-radius: 12px;
+            animation: zoom 0.3s ease;
+        }
+
+        @keyframes zoom {
+            from {
+                transform: scale(0.7);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .close-img {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 35px;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- FLOWER FALL SCRIPT -->
+    <script>
+        function createFlower() {
+            const flower = document.createElement("div");
+            flower.classList.add("flower");
+            flower.style.left = Math.random() * 100 + "vw";
+            flower.style.animationDuration = (4 + Math.random() * 4) + "s";
+            document.body.appendChild(flower);
+
+            setTimeout(() => flower.remove(), 7000);
+        }
+
+        setInterval(createFlower, 700);
+    </script>
+
+    <header>
+        <h1>Katalog Produk – Enchanted Florist</h1>
+        <p>Pilih bunga favoritmu dan checkout langsung lewat WhatsApp</p>
+    </header>
+    <!-- TOMBOL HOME -->
+    <a href="index.html" class="btn-home">Home</a>
+
+    <div class="container">
+        <!-- SEARCH BAR (letakkan di atas kategori pertama) -->
+        <div id="search-wrap" style="margin:18px 0; display:flex; gap:10px; align-items:center;">
+            <input id="site-search" type="search" placeholder="Cari produk, mis. 'bouquet', 'mawar', 'pink'..."
+                style="flex:1; padding:10px 14px; border-radius:10px; border:2px solid #ffd6e6; font-size:15px;" />
+            <select id="category-filter" style="padding:10px; border-radius:10px; border:2px solid #ffd6e6;">
+                <option value="all">Semua Kategori</option>
+                <option value="fresh-flower">Fresh Flower</option>
+                <option value="Bouquet">Bouquet</option>
+                <option value="Lainnya">Other</option>
+                <option value="Artificial-Flower">Artificial Flower</option>
+            </select>
+            <button id="clear-search"
+                style="padding:10px 12px; border-radius:10px; border:none; background:#ff7aa8; color:white; font-weight:600;">Bersihkan</button>
+            <div id="search-count" style="margin-left:6px; font-weight:600; color:#ff4b87;">0 hasil</div>
+        </div>
+
+        <!-- ====================== FRESH FLOWER ====================== -->
+        <h2 id="fresh-flower">Fresh Flower (23 Produk + 3 Best Seller)</h2>
+        <div class="grid">
+
+            <!-- (SEMUA PRODUK MU DIMASUKKAN UTUH TANPA DIUBAH) -->
+
+            <div class="product-card">
+                <div class="best">Best Seller</div><img src="mawar merah.png" onclick="openImg(this)"
+                    style="cursor:pointer;" />
+                <div class="product-name">Mawar merah</div>
+                <div class="price">Rp 15.000</div><button onclick="addToCart('Mawar merah',15000)">Tambah</button>
+            </div>
+            <div class="product-card">
+                <div class="best">Best Seller</div><img src="mawar putih.png" onclick="openImg(this)"
+                    style="cursor:pointer;" />
+                <div class="product-name">Mawar putih</div>
+                <div class="price">Rp 15.000</div><button onclick="addToCart('Mawar putih',15000)">Tambah</button>
+            </div>
+            <div class="product-card">
+                <div class="best">Best Seller</div><img src="pikok ungu.png" onclick="openImg(this)"
+                    style="cursor:pointer;" />
+                <div class="product-name">Pikok ungu</div>
+                <div class="price">Rp 10.000</div><button onclick="addToCart('Pikok ungu',10000)">Tambah</button>
+            </div>
+
+            <div class="product-card"><img src="aster putih pink.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Aster putih pink</div>
+                <div class="price">Rp 15.000</div><button onclick="addToCart('Aster putih pink',15000)">Tambah</button>
+            </div>
+            <div class="product-card"><img src="aster putih.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Aster putih</div>
+                <div class="price">Rp 15.000</div><button onclick="addToCart('Aster putih',15000)">Tambah</button>
+            </div>
+            <div class="product-card"><img src="aster ungu.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Aster ungu</div>
+                <div class="price">Rp 15.000</div><button onclick="addToCart('Aster ungu',15000)">Tambah</button>
+            </div>
+            <div class="product-card"><img src="bunga matahari.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Bunga matahari</div>
+                <div class="price">Rp 30.000</div><button onclick="addToCart('Bunga matahari',30000)">Tambah</button>
+            </div>
+            <div class="product-card"><img src="chrysanthemum kuning.png" onclick="openImg(this)"
+                    style="cursor:pointer;" />
+                <div class="product-name">Chrysanthemum kuning</div>
+                <div class="price">Rp 15.000</div><button
+                    onclick="addToCart('Chrysanthemum kuning',15000)">Tambah</button>
+            </div>
+            <div class="product-card"><img src="chrysanthemum merah.png" onclick="openImg(this)"
+                    style="cursor:pointer;" />
+                <div class="product-name">Chrysanthemum merah</div>
+                <div class="price">Rp 15.000</div><button
+                    onclick="addToCart('Chrysanthemum merah',15000)">Tambah</button>
+            </div>
+            <div class="product-card"><img src="chrysanthemum oren.png" onclick="openImg(this)"
+                    style="cursor:pointer;" />
+                <div class="product-name">Chrysanthemum orange</div>
+                <div class="price">Rp 15.000</div><button
+                    onclick="addToCart('Chrysanthemum orange',15000)">Tambah</button>
+            </div>
+
+            <!-- 13 tambahan -->
+            <div class="product-card"><img src="chrysanthemum pink.png" onclick="openImg(this)"
+                    style="cursor:pointer;" />
+                <div class="product-name">Chrysanthemum pink</div>
+                <div class="price">Rp 15.000</div><button
+                    onclick="addToCart('Chrysanthemum pink',15000)">Tambah</button>
+            </div>
+            <div class="product-card"><img src="lily casablanca.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Lily casablanca</div>
+                <div class="price">Rp 70.000</div><button onclick="addToCart('Lily casablanca',70000)">Tambah</button>
+            </div>
+            <div class="product-card"><img src="garbera.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Garbera</div>
+                <div class="price">Rp 15.000</div><button onclick="addToCart('Garbera',15000)">Tambah</button>
+            </div>
+            <div class="product-card"><img src="gompie kuning putih.png" onclick="openImg(this)"
+                    style="cursor:pointer;" />
+                <div class="product-name">Gompie kuning putih</div>
+                <div class="price">Rp 15.000</div><button
+                    onclick="addToCart('Gompie kuning putih',15000)">Tambah</button>
+            </div>
+            <div class="product-card"><img src="gompie pink.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Gompie pink</div>
+                <div class="price">Rp 15.000</div><button onclick="addToCart('Gompie pink',15000)">Tambah</button>
+            </div>
+            <div class="product-card"><img src="gompie.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Gompie kuning</div>
+                <div class="price">Rp 15.000</div><button onclick="addToCart('Gompie kuning',15000)">Tambah</button>
+            </div>
+            <div class="product-card"><img src="hydrangea.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Hydrangea</div>
+                <div class="price">Rp 25.000</div><button onclick="addToCart('Hydrangea',25000)">Tambah</button>
+            </div>
+            <div class="product-card"><img src="lolipop hijau.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Lolipop hijau</div>
+                <div class="price">Rp 15.000</div><button onclick="addToCart('Lolipop hijau',15000)">Tambah</button>
+            </div>
+            <div class="product-card"><img src="pikok putih.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Pikok putih</div>
+                <div class="price">Rp 10.000</div><button onclick="addToCart('Pikok putih',10000)">Tambah</button>
+            </div>
+            <div class="product-card"><img src="pikok unguu.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Pikok ungu</div>
+                <div class="price">Rp 10.000</div><button onclick="addToCart('Pikok ungu',10000)">Tambah</button>
+            </div>
+            <div class="product-card"><img src="pikok ungu.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Pikok pink</div>
+                <div class="price">Rp 10.000</div><button onclick="addToCart('Pikok pink',10000)">Tambah</button>
+            </div>
+            <div class="product-card"><img src="mawar peach.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Mawar peach</div>
+                <div class="price">Rp 15.000</div><button onclick="addToCart('Mawar peach',15000)">Tambah</button>
+            </div>
+            <div class="product-card"><img src="mawar pink.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Mawar pink</div>
+                <div class="price">Rp 15.000</div><button onclick="addToCart('Mawar pink',15000)">Tambah</button>
+            </div>
+
+        </div>
+
+        <!-- ====================== BOUQUET ====================== -->
+        <h2 id="Bouquet">Bouquet (15 Produk + 3 Best Seller)</h2>
+        <div class="grid">
+            <div class="product-card">
+                <div class="best">Best Seller</div><img src="bouquet mawar merah 40 tangkai.png" onclick="openImg(this)"
+                    style="cursor:pointer;" />
+                <div class="product-name">Romantic Bouquet</div>
+                <div class="price">Rp 900.000</div><button
+                    onclick="addToCart('Romantic Bouquet',900000)">Tambah</button>
+            </div>
+            <div class="product-card">
+                <div class="best">Best Seller</div><img src="bouquet thumbeline fresh flower.png"
+                    onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Thumbeline bouquet size XL</div>
+                <div class="price">Rp 330.000</div><button
+                    onclick="addToCart('Thumbeline bouquet size XL',330000)">Tambah</button>
+            </div>
+            <div class="product-card">
+                <div class="best">Best Seller</div><img src="simple fresh flower.png" onclick="openImg(this)"
+                    style="cursor:pointer;" />
+                <div class="product-name">Simple fresh flower</div>
+                <div class="price">Rp 100.000</div><button
+                    onclick="addToCart('Simple fresh flower',100000)">Tambah</button>
+            </div>
+
+            <div class="product-card">
+                <img src="summer bouque.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Summer bouquet</div>
+                <div class="price">Rp 550.000</div>
+                <button onclick="addToCart('Summer bouquet',550000)">Tambah</button>
+            </div>
+
+            <div class="product-card">
+                <img src="thumbelina size L.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Thumbelina size L</div>
+                <div class="price">Rp 220.000</div>
+                <button onclick="addToCart('Thumbelina size L',220000)">Tambah</button>
+            </div>
+
+            <div class="product-card">
+                <img src="sweet pink bouquet.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Sweet pink bouquet</div>
+                <div class="price">Rp 350.000</div>
+                <button onclick="addToCart('Sweet pink bouquet',350000)">Tambah</button>
+            </div>
+
+            <div class="product-card">
+                <img src="pink love bouque.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Pink love bouquet</div>
+                <div class="price">Rp 400.000</div>
+                <button onclick="addToCart('Pink love bouquet',400000)">Tambah</button>
+            </div>
+
+            <div class="product-card">
+                <img src="Thumbelina bouque.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Thumbelina bouquet</div>
+                <div class="price">Rp 300.000</div>
+                <button onclick="addToCart('Thumbelina bouquet',300000)">Tambah</button>
+            </div>
+
+            <div class="product-card">
+                <img src="wedding bouquet.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Wedding bouquet</div>
+                <div class="price">Rp 400.000</div>
+                <button onclick="addToCart('Wedding bouquet',400000)">Tambah</button>
+            </div>
+
+            <div class="product-card">
+                <img src="White roses mix baby’s breath bouque.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">White roses mix baby’s breath bouquet</div>
+                <div class="price">Rp 175.000</div>
+                <button onclick="addToCart('White roses mix baby’s breath bouquet',175000)">Tambah</button>
+            </div>
+
+            <div class="product-card">
+                <img src="Dark rose bouquet.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Dark rose bouquet</div>
+                <div class="price">Rp 170.000</div>
+                <button onclick="addToCart('Dark rose bouquet',170000)">Tambah</button>
+            </div>
+
+            <div class="product-card">
+                <img src="elegan bouquet.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Elegan bouquet</div>
+                <div class="price">Rp 240.000</div>
+                <button onclick="addToCart('Elegan bouquet',240000)">Tambah</button>
+            </div>
+
+            <div class="product-card">
+                <img src="fairy bouquet.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Fairy bouquet</div>
+                <div class="price">Rp 200.000</div>
+                <button onclick="addToCart('Fairy bouquet',200000)">Tambah</button>
+            </div>
+
+            <div class="product-card">
+                <img src="12 stem rose's bouquet.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">12 stem rose's bouquet</div>
+                <div class="price">Rp 185.000</div>
+                <button onclick="addToCart('12 stem roses bouquet',185000)">Tambah</button>
+            </div>
+
+            <div class="product-card">
+                <img src="20 rose's bouquet.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">20 rose's bouquet</div>
+                <div class="price">Rp 400.000</div>
+                <button onclick="addToCart('20 roses bouquet',400000)">Tambah</button>
+            </div>
+
+        </div>
+
+        <!-- ====================== other ====================== -->
+        <h2 id="Lainnya">Other (5 Produk)</h2>
+        <div class="grid">
+            <div class="product-card"><img src="rangkaian.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Rangkaian altar</div>
+                <div class="price">Rp 1.500.000 - Rp 3.500.000</div><button
+                    onclick="addToCartRange('Rangkaian altar',1500000,3500000)">Tambah</button>
+            </div>
+            <div class="product-card">
+                <img src="gift box.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Gift box [Tergantung isi]</div>
+                <div class="price">Rp 50.000</div>
+                <button onclick="addToCart('Gift box',50000)">Tambah</button>
+            </div>
+            <div class="product-card">
+                <img src="gift box 2.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Gift box 2 [Tergantung isi]</div>
+                <div class="price">Rp 50.000</div>
+                <button onclick="addToCart('Gift box 2',50000)">Tambah</button>
+            </div>
+            <div class="product-card">
+                <img src="bunga kalung.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Bunga kalung [Size standart]</div>
+                <div class="price">Rp 250.000</div>
+                <button onclick="addToCart('Bunga kalung',250000)">Tambah</button>
+            </div>
+            <div class="product-card">
+                <img src="Flower box.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Flower box [Tergantung isi]</div>
+                <div class="price">Rp 50.000</div>
+                <button onclick="addToCart('Flower box',50000)">Tambah</button>
+            </div>
+            <div class="product-card">
+                <img src="papan bunga.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Papan bunga [Tergantung request]</div>
+                <div class="price">Rp 145.000</div>
+                <button onclick="addToCart('papan bunga',145000)">Tambah</button>
+            </div>
+        </div>
+
+        <!-- ====================== ARTIFICIAL FLOWER ====================== -->
+        <h2 id="Artificial-Flower">Artificial Flower Bouquet (7 Produk + 2 Best Seller)</h2>
+        <div class="grid">
+            <div class="product-card">
+                <div class="best">Best Seller</div><img src="Soft artificial flower bouquet.png" onclick="openImg(this)"
+                    style="cursor:pointer;" />
+                <div class="product-name">Soft artificial flower bouquet</div>
+                <div class="price">Rp 150.000</div><button
+                    onclick="addToCart('Soft artificial flower bouquet',150000)">Tambah</button>
+            </div>
+            <div class="product-card">
+                <div class="best">Best Seller</div><img src="Thumbelina artificial bouquet.png" onclick="openImg(this)"
+                    style="cursor:pointer;" />
+                <div class="product-name">Thumbelina artificial bouquet</div>
+                <div class="price">Rp 350.000</div><button
+                    onclick="addToCart('Thumbelina artificial bouquet',350000)">Tambah</button>
+            </div>
+
+            <div class="product-card">
+                <img src="Tulip artificial bouque.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Tulip artificial bouquet</div>
+                <div class="price">Rp 100.000</div>
+                <button onclick="addToCart('Tulip artificial bouquet',100000)">Tambah</button>
+            </div>
+
+            <div class="product-card">
+                <img src="Yellow bouquet.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Yellow bouquet</div>
+                <div class="price">Rp 150.000</div>
+                <button onclick="addToCart('Yellow bouquet',150000)">Tambah</button>
+            </div>
+
+            <div class="product-card">
+                <img src="Lilies premium artificial bouquet.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Lilies premium artificial bouquet</div>
+                <div class="price">Rp 250.000</div>
+                <button onclick="addToCart('Lilies premium artificial bouquet',250000)">Tambah</button>
+            </div>
+
+            <div class="product-card">
+                <img src="Love bouquet.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Love bouquet</div>
+                <div class="price">Rp 250.000</div>
+                <button onclick="addToCart('Love bouquet',250000)">Tambah</button>
+            </div>
+
+            <div class="product-card">
+                <img src="Pinkie's garbera artificial bouquet.png" onclick="openImg(this)" style="cursor:pointer;" />
+                <div class="product-name">Pinkie's garbera artificial bouquet</div>
+                <div class="price">Rp 150.000</div>
+                <button onclick="addToCart('Pinkie\'s garbera artificial bouquet',150000)">Tambah</button>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- ===================== FORM KUSTOM PEMESANAN ===================== -->
+    <div id="custom-order" style="
+    margin:40px 20px;
+    background:white;
+    padding:20px;
+    border-radius:16px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+    border:2px solid #ffb6d5;
+    max-width:500px;
+">
+
+        <h3 style="margin-top:0;color:#ff4b87;text-align:center;">📝 Detail Pemesanan</h3>
+
+        <input id="namaPemesan" placeholder="Nama Pemesan"
+            style="width:100%;padding:10px;margin:6px 0;border-radius:8px;border:1px solid #ccc;">
+
+        <input id="namaPenerima" placeholder="Nama Penerima"
+            style="width:100%;padding:10px;margin:6px 0;border-radius:8px;border:1px solid #ccc;">
+
+        <input id="kartuUcapan" placeholder="Isi Kartu Ucapan"
+            style="width:100%;padding:10px;margin:6px 0;border-radius:8px;border:1px solid #ccc;">
+
+        <input id="tanggalKirim" type="date"
+            style="width:100%;padding:10px;margin:6px 0;border-radius:8px;border:1px solid #ccc;">
+
+        <input id="jamKirim" type="time"
+            style="width:100%;padding:10px;margin:6px 0;border-radius:8px;border:1px solid #ccc;">
+
+        <textarea id="alamatKirim" placeholder="Alamat Pengantaran" rows="3"
+            style="width:100%;padding:10px;margin:6px 0;border-radius:8px;border:1px solid #ccc;"></textarea>
+
+        <textarea id="catatanTambahan" placeholder="Catatan Tambahan (warna, request khusus, dll)" rows="3"
+            style="width:100%;padding:10px;margin:6px 0;border-radius:8px;border:1px solid #ccc;"></textarea>
+
+    </div>
+
+    <!-- CART -->
+    <div id="cart" class="cart-animate">
+        <h3>🛒 Keranjang
+            <span id="cart-count" style="
+        background:white;
+        color:#ff4b87;
+        padding:2px 8px;
+        border-radius:50px;
+        font-size:12px;
+        margin-left:5px;
+    ">0</span>
+        </h3>
+
+        <div id="cart-items"></div>
+        <p id="total"></p>
+
+        <div style="display:flex; gap:10px; margin-top:10px;">
+            <button id="checkout" onclick="checkout()">Checkout WA</button>
+            <button onclick="clearCart()" style="background:#fff; color:#ff4b87;">Kosongkan</button>
+        </div>
+    </div>
+
+    <script>
+        let cart = [];
+
+        function addToCart(name, price) {
+            const existing = cart.find(item => item.name === name && item.price === price);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ name, price, qty: 1 });
+            }
+            updateCart();
+        }
+
+        // for items that have a price range, ask user to pick a price
+        function addToCartRange(name, minPrice, maxPrice) {
+            const defaultPrice = minPrice;
+            let input = prompt(`Masukkan harga untuk "${name}" (antara Rp ${minPrice.toLocaleString()} - Rp ${maxPrice.toLocaleString()}).\nKetik angka tanpa titik/komersial, atau kosongkan untuk harga minimum.`);
+            if (input === null) return; // user cancel
+            input = input.replace(/[^0-9]/g, '');
+            let chosen = parseInt(input, 10);
+            if (isNaN(chosen) || chosen < minPrice) chosen = defaultPrice;
+            if (chosen > maxPrice) chosen = maxPrice;
+            addToCart(name + (chosen !== defaultPrice ? ` (Rp ${chosen.toLocaleString()})` : ''), chosen);
+        }
+
+        function increaseQty(index) {
+            cart[index].qty += 1;
+            updateCart();
+        }
+
+        function decreaseQty(index) {
+            if (cart[index].qty > 1) {
+                cart[index].qty -= 1;
+            } else {
+                cart.splice(index, 1);
+            }
+            updateCart();
+        }
+
+        function clearCart() {
+            cart = [];
+            document.getElementById('cart').style.display = 'none';
+            document.getElementById('cart-count').innerText = 0;
+        }
+
+        function updateCart() {
+            document.getElementById('cart').style.display = 'block';
+
+            let html = "";
+            let total = 0;
+            let count = 0;
+
+            cart.forEach((item, index) => {
+                html += `
+                <div style="margin-bottom:10px; background:#fff; color:#333; padding:8px; border-radius:8px;">
+                    <b>${item.name}</b><br>
+                    Rp ${item.price.toLocaleString()} x ${item.qty}
+                    <div style="margin-top:6px;">
+                        <button onclick="decreaseQty(${index})" style="padding:3px 8px;">➖</button>
+                        <button onclick="increaseQty(${index})" style="padding:3px 8px;">➕</button>
+                    </div>
+                </div>
+            `;
+                total += item.price * item.qty;
+                count += item.qty;
+            });
+
+            document.getElementById('cart-items').innerHTML = html;
+            document.getElementById('total').innerHTML = `<b>Total: Rp ${total.toLocaleString()}</b>`;
+            document.getElementById('cart-count').innerText = count;
+        }
+
+        function checkout() {
+            let nama = document.getElementById("namaPemesan").value || '-';
+            let penerima = document.getElementById("namaPenerima").value || '-';
+            let kartu = document.getElementById("kartuUcapan").value || '-';
+            let tanggal = document.getElementById("tanggalKirim").value || '-';
+            let jam = document.getElementById("jamKirim").value || '-';
+            let alamat = document.getElementById("alamatKirim").value || '-';
+            let catatan = document.getElementById("catatanTambahan").value || '-';
+
+            if (cart.length === 0) {
+                alert('Keranjang kosong. Silakan tambahkan produk terlebih dahulu.');
+                return;
+            }
+
+            let text = `Halo Enchanted Florist, saya ingin memesan:%0A%0A`;
+
+            cart.forEach(item => {
+                text += `- ${item.name} (${item.qty} pcs) - Rp ${(item.price * item.qty).toLocaleString()}%0A`;
+            });
+
+            text += `%0A------------------------%0A`;
+            text += `Nama Pemesan: ${nama}%0A`;
+            text += `Nama Penerima: ${penerima}%0A`;
+            text += `Isi Kartu: ${kartu}%0A`;
+            text += `Tanggal Kirim: ${tanggal}%0A`;
+            text += `Jam Kirim: ${jam}%0A`;
+            text += `Alamat Kirim: ${alamat}%0A`;
+            text += `Catatan Tambahan: ${catatan}%0A`;
+
+            window.location.href = `https://wa.me/6285831156517?text=${text}`;
+        }
+    </script>
+
+    </div>
+    <script>
+        /* ---------- helper normalize (lowercase + remove diacritics) ---------- */
+        function normalizeText(s) {
+            return s.normalize('NFD').replace(/[^\w\s\-']/g, '').toLowerCase();
+        }
+
+        /* ---------- build index from DOM ---------- */
+        function buildIndex() {
+            const cards = Array.from(document.querySelectorAll('.product-card'));
+            const index = cards.map(card => {
+                const nameEl = card.querySelector('.product-name');
+                const name = nameEl ? nameEl.textContent.trim() : '';
+
+                // find nearest previous H2 (search previousElementSibling repeatedly)
+                let category = 'unknown';
+                let el = card;
+                while (el) {
+                    el = el.previousElementSibling;
+                    if (!el) {
+                        // move up to parent and continue searching its previous siblings
+                        el = card.parentElement;
+                        if (!el) break;
+                        // start from the element before the parent
+                        el = el.previousElementSibling;
+                    }
+                    if (!el) break;
+                    if (el.tagName === 'H2' && el.id) {
+                        category = el.id;
+                        break;
+                    }
+                }
+
+                // store original name on dataset so we can restore highlights later
+                card.dataset.origName = name;
+                return {
+                    card,
+                    name,
+                    nameNorm: normalizeText(name),
+                    category
+                };
+            });
+            return index;
+        }
+
+        /* ---------- render results (filter & highlight) ---------- */
+        function performSearch(index, query, catFilter) {
+            const q = normalizeText(query || '');
+            let results = index.filter(item => {
+                if (catFilter && catFilter !== 'all' && item.category !== catFilter) return false;
+                if (!q) return true;
+                return item.nameNorm.includes(q);
+            });
+
+            // show/hide cards, highlight matches
+            index.forEach(item => {
+                const el = item.card;
+                const nameEl = el.querySelector('.product-name');
+                // restore original
+                nameEl.innerHTML = item.card.dataset.origName;
+                if (results.includes(item)) {
+                    el.style.display = '';
+                    // highlight all occurrences in product name (simple)
+                    if (q) {
+                        // build a case-insensitive regex for the normalized query but apply to original text
+                        const original = item.card.dataset.origName;
+                        const re = new RegExp(q.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&'), 'ig');
+                        nameEl.innerHTML = original.replace(re, match => `<mark>${match}</mark>`);
+                    }
+                } else {
+                    el.style.display = 'none';
+                }
+            });
+
+            // update count text
+            const countEl = document.getElementById('search-count');
+            countEl.innerText = `${results.length} hasil`;
+            return results;
+        }
+
+        /* ---------- debounce ---------- */
+        function debounce(fn, wait = 250) {
+            let t;
+            return function (...args) {
+                clearTimeout(t);
+                t = setTimeout(() => fn.apply(this, args), wait);
+            };
+        }
+
+        /* ---------- init ---------- */
+        document.addEventListener('DOMContentLoaded', () => {
+            const index = buildIndex();
+            const input = document.getElementById('site-search');
+            const cat = document.getElementById('category-filter');
+            const clearBtn = document.getElementById('clear-search');
+
+            const doSearch = () => {
+                const q = input.value.trim();
+                const c = cat.value;
+                performSearch(index, q, c);
+            };
+
+            const debounced = debounce(doSearch, 180);
+
+            input.addEventListener('input', debounced);
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') doSearch();
+            });
+
+            cat.addEventListener('change', doSearch);
+            clearBtn.addEventListener('click', () => {
+                input.value = '';
+                cat.value = 'all';
+                doSearch();
+                input.focus();
+            });
+
+            // run once to show all products and count
+            performSearch(index, '', 'all');
+        });
+    </script>
+    <!-- IMAGE PREVIEW MODAL -->
+    <div id="imgModal" class="img-modal">
+        <span class="close-img" onclick="closeImg()">&times;</span>
+        <img class="modal-content" id="imgPreview">
+    </div>
+    <script>
+        function openImg(img) {
+            document.getElementById("imgModal").style.display = "flex";
+            document.getElementById("imgPreview").src = img.src;
+        }
+
+        function closeImg() {
+            document.getElementById("imgModal").style.display = "none";
+        }
+    </script>
+    <script>
+        const month = new Date().getMonth() + 1;
+        const root = document.documentElement;
+
+        if (month === 1 || month === 12) {
+            // Natal & Tahun Baru
+            root.style.setProperty('--season-bg', '#fff5f5');
+            root.style.setProperty('--season-primary', '#c62828');
+            root.style.setProperty('--season-secondary', '#ffd700');
+        }
+        else if (month === 2) {
+            // Valentine
+            root.style.setProperty('--season-bg', '#fff0f5');
+            root.style.setProperty('--season-primary', '#ff4b87');
+            root.style.setProperty('--season-secondary', '#d81b60');
+        }
+        else if (month >= 3 && month <= 5) {
+            // Spring / Semi
+            root.style.setProperty('--season-bg', '#f0fff8');
+            root.style.setProperty('--season-primary', '#2ecc71');
+            root.style.setProperty('--season-secondary', '#1b9c85');
+        }
+        else if (month >= 6 && month <= 8) {
+            // Summer
+            root.style.setProperty('--season-bg', '#fffbe6');
+            root.style.setProperty('--season-primary', '#ffd166');
+            root.style.setProperty('--season-secondary', '#f77f00');
+        }
+        else if (month >= 9 && month <= 10) {
+            // Autumn
+            root.style.setProperty('--season-bg', '#fff3e0');
+            root.style.setProperty('--season-primary', '#ffb703');
+            root.style.setProperty('--season-secondary', '#fb8500');
+        }
+        else if (month === 11) {
+            // Ramadan / Islami
+            root.style.setProperty('--season-bg', '#ecfffb');
+            root.style.setProperty('--season-primary', '#1abc9c');
+            root.style.setProperty('--season-secondary', '#16a085');
+        }
+    </script>
+
+</body>
+
+</html>
